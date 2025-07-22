@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SA_deadline_in_past</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( SLA_Deadline__c  &lt;=  CreatedDate )</errorConditionFormula>
+    <errorDisplayField>SLA_Deadline__c</errorDisplayField>
+    <errorMessage>SLA deadline can not be in the past or equal to Date/Time Opened</errorMessage>
+</ValidationRule>
