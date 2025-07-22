@@ -30,7 +30,7 @@ trigger CaseAssignmentTrigger on Case (before insert, before update) {
                 Case oldCase = Trigger.old[i];
                 Case NewCase = Trigger.new[i];
                 //if sla not violated then status can be changed
-                if(oldCase.SLA_Violation__c == false && (oldCase.SLA_Deadline__c > Datetime.now() && NewCase.SLA_Deadline__c > Datetime.now()) ){
+                if(oldCase.SLA_Violation__c == false && (oldCase.SLA_Deadline__c > Datetime.now() && NewCase.SLA_Deadline__c >= Datetime.now()) ){
                     if((NewCase.Type == NULL || NewCase.Priority == NULL) || NewCase.Status == NULL){
                         NewCase.addError('Not a valid data. Please check case type or priority.');
                     }else{
@@ -50,7 +50,7 @@ trigger CaseAssignmentTrigger on Case (before insert, before update) {
                         }
                     }
                 
-                }else if(oldCase.SLA_Violation__c == true && oldCase.SLA_Deadline__c <= Datetime.now() ){
+                }else if(oldCase.SLA_Violation__c == true && oldCase.SLA_Deadline__c < Datetime.now() ){
                     NewCase.addError('Your SLA is breached. You cant take any action on this case');
                 }
             }
